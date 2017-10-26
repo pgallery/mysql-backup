@@ -12,7 +12,8 @@ if [ -f /var/www/html/gallery/.env ];then
 else
 
     DB_HOST=${DB_HOST:-127.0.0.1}
-    DB_USER=${DB_USER:-root}
+    DB_PORT=${DB_HOST:-3306}
+    DB_USERNAME=${DB_USERТФЬУ:-root}
     TIMEZONE=${TIMEZONE:-Europe/Moscow}
 
 fi
@@ -31,7 +32,7 @@ while true; do
     backup_date=`date +"%G-%m-%d_%H_%M_%S"`
     backup_file=/backup/${DUMP_PREFIX}${backup_date}.sql.gz
 
-    mysqldump -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} --no-create-db --databases ${DB_DATABASE} | gzip > $backup_file
+    mysqldump -h${DB_HOST} -P${DB_PORT} -u${DB_USERNAME} -p${DB_PASSWORD} --no-create-db --databases ${DB_DATABASE} | gzip > $backup_file
 
     if [[ ! -z ${BACKUP_USER} && ! -z ${BACKUP_PASSWORD} && ! -z ${BACKUP_HOST} && ! -z ${BACKUP_DIR} ]]; then
 	sshpass -p "${BACKUP_PASSWORD}" scp  -o "StrictHostKeyChecking no" ${backup_file} ${BACKUP_USER}@${BACKUP_HOST}:${BACKUP_DIR}
