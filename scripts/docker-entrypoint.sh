@@ -4,12 +4,22 @@ if [[ -n "$DEBUG" ]]; then
   set -x
 fi
 
+if [ -f /var/www/html/gallery/.env ];then
+
+    source /var/www/html/gallery/.env
+    TIMEZONE=${APP_TIMEZONE}
+
+else
+
+    DB_HOST=${DB_HOST:-127.0.0.1}
+    DB_USER=${DB_USER:-root}
+    TIMEZONE=${TIMEZONE:-Europe/Moscow}
+
+fi
+
 DUMP_INTERVAL=${DUMP_INTERVAL:-1440}
 DUMP_BEGIN=${DUMP_BEGIN:-15}
 DUMP_PREFIX=${DUMP_PREFIX:-db_}
-DB_HOST=${DB_HOST:-127.0.0.1}
-DB_USER=${DB_USER:-root}
-TIMEZONE=${TIMEZONE:-Europe/Moscow}
 
 # set timezone
 ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
@@ -21,11 +31,11 @@ while true; do
     backup_date=`date +"%G-%m-%d_%H_%M_%S"`
     backup_file=/backup/${DUMP_PREFIX}${backup_date}.sql.gz
 
-    mysqldump -A -h $DB_HOST -u$DB_USER -p$DB_PASSWORD | gzip > $backup_file
+    mysqldump -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} --no-create-db --databases ${DB_DATABASE} | gzip > $backup_file
 
-    if [[ ! -z $BACKUP_USER && ! -z $BACKUP_PASSWORD && ! -z $BACKUP_HOST && ! -z $BACKUP_DIR ]]; then
-	sshpass -p "$BACKUP_PASSWORD" scp  -o "StrictHostKeyChecking no" $backup_file $BACKUP_USER@$BACKUP_HOST:$BACKUP_DIR
-	rm -f $backup_file
+    if [[ ! -z ${BACKUP_USER} && ! -z ${BACKUP_PASSWORD} && ! -z ${BACKUP_HOST} && ! -z ${BACKUP_DIR} ]]; then
+	sshpass -p "${BACKUP_PASSWORD}" scp  -o "StrictHostKeyChecking no" ${backup_file} ${BACKUP_USER}@${BACKUP_HOST}:${BACKUP_DIR}
+	rm -f ${backup_file}
     fi
 
     sleep $(($DUMP_INTERVAL*60))
