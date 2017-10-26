@@ -13,7 +13,7 @@ else
 
     DB_HOST=${DB_HOST:-127.0.0.1}
     DB_PORT=${DB_HOST:-3306}
-    DB_USERNAME=${DB_USERТФЬУ:-root}
+    DB_USERNAME=${DB_USERNAME:-root}
     TIMEZONE=${TIMEZONE:-Europe/Moscow}
 
 fi
