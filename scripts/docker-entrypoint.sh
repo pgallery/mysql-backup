@@ -21,6 +21,7 @@ fi
 DUMP_INTERVAL=${DUMP_INTERVAL:-1440}
 DUMP_BEGIN=${DUMP_BEGIN:-15}
 DUMP_PREFIX=${DUMP_PREFIX:-db_}
+DUMP_STORAGE=${DUMP_STORAGE:-local}
 
 # set timezone
 ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
