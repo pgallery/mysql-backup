@@ -44,7 +44,7 @@ while true; do
 
     if [ ${DUMP_STORAGE} == 'aws' ]; then
 
-	aws --endpoint-url=https://${AWS_ENDPOINT}/ s3 ls s3://${AWS_BUCKET}/
+	aws --endpoint-url=https://${AWS_ENDPOINT}/ s3 cp $backup_file s3://${AWS_BUCKET}/
 	rm -f ${backup_file}
 
     fi
