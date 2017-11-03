@@ -24,8 +24,8 @@ DUMP_PREFIX=${DUMP_PREFIX:-db_}
 DUMP_STORAGE=${DUMP_STORAGE:-local}
 
 # set timezone
-ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
-dpkg-reconfigure -f noninteractive tzdata
+cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+echo ${TIMEZONE} > /etc/timezone
 
 sleep $((DUMP_BEGIN*60))
 
