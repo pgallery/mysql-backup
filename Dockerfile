@@ -20,5 +20,6 @@ COPY config/	/root/.aws/
 
 VOLUME /root/.aws
 VOLUME /backup
+VOLUME /var/www/html
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
