@@ -6,11 +6,10 @@ LABEL description="Docker image mysql-backup"
 
 COPY scripts/ /usr/local/bin/
 
-RUN apk add -U bash sshpass mysql-client python3 curl tzdata gzip \
+RUN apk add --no-cache bash sshpass mysql-client python3 curl tzdata gzip \
     && curl -s https://bootstrap.pypa.io/get-pip.py > /tmp/get-pip.py \
     && python3 /tmp/get-pip.py \
-    && pip3 install awscli \
-    && rm -rf /var/cache/apk/*
+    && pip3 install awscli
 
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 
