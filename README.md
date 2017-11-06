@@ -49,10 +49,10 @@ sudo docker pull pgallery/mysql-backup
 
 Данные параметры необходимы при DUMP_STORAGE=aws
 
- - **AWS_ENDPOINT**: хост AWS сервера
- - **AWS_KEY**: ключ доступа аккаунта
- - **AWS_SECRET**: секретный ключ аккаунта
- - **AWS_BUCKET**: имя бакета для сохранения резервной копии
+ - **BACKUP_AWS_ENDPOINT**: хост AWS сервера
+ - **BACKUP_AWS_KEY**: ключ доступа аккаунта
+ - **BACKUP_AWS_SECRET**: секретный ключ аккаунта
+ - **BACKUP_AWS_BUCKET**: имя бакета для сохранения резервной копии
 
 #### Примеры использования
 
