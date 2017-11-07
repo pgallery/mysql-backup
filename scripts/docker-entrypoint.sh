@@ -27,6 +27,15 @@ DUMP_STORAGE=${DUMP_STORAGE:-local}
 cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 echo ${TIMEZONE} > /etc/timezone
 
+if [ ${DUMP_STORAGE} == 'aws' ] || [ -n ${BACKUP_AWS_KEY} ] || [ -n ${BACKUP_AWS_SECRET} ]; then
+
+    sed -i \
+        -e "s/BACKUP_AWS_KEY/${BACKUP_AWS_KEY}/g" \
+        -e "s/BACKUP_AWS_SECRET/${BACKUP_AWS_SECRET}/g" \
+        /root/.aws/credentials
+
+fi
+
 sleep $((DUMP_BEGIN*60))
 
 while true; do
