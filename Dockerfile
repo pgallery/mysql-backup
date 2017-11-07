@@ -11,7 +11,8 @@ RUN apk add --no-cache bash sshpass mysql-client python3 curl tzdata gzip \
     && python3 /tmp/get-pip.py \
     && pip3 install awscli
 
-RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/local/bin/docker-entrypoint.sh \
+    && chmod 755 /usr/local/bin/backup-now.sh
 
 COPY config/	/root/.aws/
 
